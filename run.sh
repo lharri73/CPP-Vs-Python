@@ -8,9 +8,9 @@ main(){
         docker build -t pycpptest:main .;
     fi
 
-    loc=`pwd`/src
+    loc=`pwd`/source
 
-    docker run -it --name pycppTest --rm -v $loc:/opt/app pycppTest:main 
+    docker run -it --name pycppTest --rm -v $loc:/opt/app pycpptest:main 
 
 }
 
