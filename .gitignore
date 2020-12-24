@@ -3,3 +3,9 @@ source/images/*
 
 source/graphs/*
 !source/graphs/.keep
+
+source/compileTests/*
+!source/compileTests/.keep
+
+source/bin/*
+!source/bin/.keep

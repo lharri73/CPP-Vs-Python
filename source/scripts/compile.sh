@@ -1,6 +1,18 @@
 #!/bin/bash
 myTime="/usr/bin/time -f %U sh -c"
-$myTime "g++ -E src/preprocess.cpp > compileTests/postproc.cpp"
-$myTime "g++ -S -o compileTests/postAssemble.s compileTests/postproc.cpp"
-$myTime "g++ -c compileTests/postAssemble.s -o compileTests/postassemble.o"
-$myTime "g++ -o bin/linked compileTests/postassemble.o"
+
+timeIt(){
+    name="$(basename -s .cpp $1)"
+    echo "Preprocess"
+    $myTime "g++ -E src/$name.cpp > compileTests/1_$name.cpp"
+    echo "Compile"
+    $myTime "g++ -S -o compileTests/2_$name.s compileTests/1_$name.cpp"
+    echo "Assemble"
+    $myTime "g++ -c compileTests/2_$name.s -o compileTests/3_$name.o"
+    echo "Link"
+    $myTime "g++ -o bin/4_$name compileTests/3_$name.o"
+    echo "Total (independent)"
+    $myTime "g++ -o bin/5_$name src/$name.cpp"
+}
+
+timeIt $1
